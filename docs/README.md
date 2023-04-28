@@ -1,3 +1,3 @@
-# Headline
+# Fish API
 
-> An awesome project.
+_A Fish API that allows for users to query for different types of fish species and detailed information._
