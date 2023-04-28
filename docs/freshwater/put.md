@@ -26,6 +26,7 @@
    "id": int,
    "name": string,
    "scientific_name": string,
+   "image": string,
    "family": FamilySchema,
    "environment": EnvironmentSchema[],
    "diet": string[]
