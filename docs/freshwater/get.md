@@ -1,10 +1,12 @@
 # GET REQUESTS
 
-## All Fish Species
+## Fish
+
+### All Fish Species
 
 > **`GET` `/fish/freshwater`**
 
-### Query Parameters
+#### Query Parameters
 
 - **`family`**
   - **Type: String**
@@ -16,14 +18,13 @@
   - Comma-delimited string for multiple inputs
     - `/fish/freshwater?environments=stream,lake`
 
-## Single Fish Specie
+### Single Fish Specie
 
 > **`GET` `/fish/freshwater/{id}`**
 
 - Pass in fish `id` as a path variable
 
-
-## Response Schema
+### Fish Response Schema
 
 ```json
   {
@@ -33,5 +34,38 @@
    "family": int, // family id
    "environment": int[], // list of environment id's
    "diet": string[]
+  }
+```
+
+## Environments
+
+> **`GET` `/fish/freshwater/environments`**
+
+- Returns a list of fish environments
+
+### Environment Response Schema
+
+```json
+  {
+   "id": int,
+   "name": string,
+   "species": int[] // list of fish id's
+  }
+```
+
+## Families
+
+> **`GET` `/fish/freshwater/families`**
+
+- Returns a list of fish families
+
+### Family Response Schema
+
+```json
+  {
+   "id": int,
+   "name": string,
+   "scientific_name": string,
+   "species": int[] // list of fish id's
   }
 ```
