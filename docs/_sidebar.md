@@ -1,2 +1,6 @@
 * [Home](/)
-* [API Documentation](apidoc.md)
+- [API Documentation](apidoc.md)
+  - [GET](/get.md)
+  - [POST](/post.md)
+  - [PUT](/put.md)
+  - [DELETE](/delete.md)

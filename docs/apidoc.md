@@ -1,2 +1,1 @@
-* [Home](/)
-* [API Documentation](apidoc.md)
+<h1>API DOCUMENTATION</h1>
