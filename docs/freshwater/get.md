@@ -39,11 +39,13 @@
 
 ## Environments
 
+### All Environments
+
 > **`GET` `/fish/freshwater/environments`**
 
 - Returns a list of fish environments
 
-### Environment Response Schema
+#### Environment Response Schema
 
 ```json
   {
@@ -55,11 +57,13 @@
 
 ## Families
 
+### All Families
+
 > **`GET` `/fish/freshwater/families`**
 
 - Returns a list of fish families
 
-### Family Response Schema
+#### Family Response Schema
 
 ```json
   {
