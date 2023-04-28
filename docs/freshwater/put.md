@@ -6,7 +6,7 @@
 
 > **`PUT` `/fish/freshwater/{id}`**
 
-- Pass in fish `id` as a path variable
+- Pass in fish `id` as a path variable.
 
 #### JSON Request Body
 
@@ -16,10 +16,8 @@
   {
    "name": "Smallmouth Bass",
    "scientific_name": "Micropterus dolomieu",
-   "family": 5,
   }
 ```
-
 
 ### Fish Response Schema
 
@@ -28,8 +26,8 @@
    "id": int,
    "name": string,
    "scientific_name": string,
-   "family": int, // family id
-   "environment": int[], // list of environment id's
+   "family": FamilySchema,
+   "environment": EnvironmentSchema[],
    "diet": string[]
   }
 ```

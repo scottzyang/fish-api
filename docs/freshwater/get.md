@@ -22,7 +22,7 @@
 
 > **`GET` `/fish/freshwater/{id}`**
 
-- Pass in fish `id` as a path variable
+- Pass in fish `id` as a path variable.
 
 ### Fish Response Schema
 
@@ -31,8 +31,9 @@
    "id": int,
    "name": string,
    "scientific_name": string,
-   "family": int, // family id
-   "environment": int[], // list of environment id's
+   "image": string,
+   "family": FamilySchema,
+   "environment": EnvironmentSchema[],
    "diet": string[]
   }
 ```
@@ -51,7 +52,6 @@
   {
    "id": int,
    "name": string,
-   "species": int[] // list of fish id's
   }
 ```
 
@@ -70,6 +70,5 @@
    "id": int,
    "name": string,
    "scientific_name": string,
-   "species": int[] // list of fish id's
   }
 ```
