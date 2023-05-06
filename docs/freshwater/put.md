@@ -15,7 +15,7 @@
 ```json
   {
    "name": "Smallmouth Bass",
-   "scientific_name": "Micropterus dolomieu",
+   "scientific_name": "Micropterus dolomieu"
   }
 ```
 
