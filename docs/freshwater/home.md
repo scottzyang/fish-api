@@ -6,8 +6,8 @@
    "name": "Rainbow Trout",
    "scientific_name": "Oncorhynchus mykiss",
    "image": "fishyfish.jpg",
-   "family": 6, // family id
-   "environment": [3, 6, 2, 5], // list of environment id's
+   "family": FamilySchema,
+   "environment": EnvironmentSchema[],
    "diet": ["insects", "fish"]
   }
 ```
