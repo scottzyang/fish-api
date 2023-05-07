@@ -5,13 +5,12 @@ const userSchema = new Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
   email: { type: String, required: true },
-  logs: [{ type: Schema.Types.ObjectId, ref: 'Log' }]
+  apiKey: { type: String }
 }, { timestamps: true });
 
 // execute password checking prior to save
 userSchema.pre('save', function (next) {
   const user = this;
-  console.log("This ran hehee")
 
   if (!user.isModified('password')) {
     return next();
