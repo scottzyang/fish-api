@@ -1,5 +1,5 @@
 const express = require('express');
-const fishRoutes = require('./freshwater.js');
+const fishRoutes = require('./fish.js');
 const familyRoutes = require('./family.js');
 const environmentRoutes = require('./environment.js')
 
@@ -7,8 +7,8 @@ const environmentRoutes = require('./environment.js')
 const router = express.Router();
 
 // mount
-// router.use('/fish/freshwater', fishRoutes);
-// router.use('/fish/freshwater/families', familyRoutes);
+router.use('/fish/freshwater/families', familyRoutes);
 router.use('/fish/freshwater/environments', environmentRoutes);
+router.use('/fish/freshwater', fishRoutes);
 
 module.exports = router
