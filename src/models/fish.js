@@ -14,6 +14,8 @@ const fishSchema = new Schema({
 fishSchema
   .pre('findOne', Populate('family'))
   .pre('findOne', Populate('environment'))
+  .pre('find', Populate('family'))
+  .pre('find', Populate('environment'))
   .pre('findById', Populate('family'))
   .pre('findById', Populate('environment'));
 
