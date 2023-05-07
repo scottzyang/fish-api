@@ -69,5 +69,4 @@ const environmentController = {
   },
 }
 
-
 module.exports = environmentController;
