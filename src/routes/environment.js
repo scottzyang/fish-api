@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Environment = require('../models/environment');
+const environmentController = require('../controllers/environment');
 
-router.get('/', async (req, res) => {
-  try {
-    const environments = await Environment.find();
-    return res.json({ environments });
-  } catch (err) {
-    throw err.message;
-  }
-});
+// routes for environment
+router.get('/', environmentController.getAll);
+router.get('/:id', environmentController.getOne);
+router.post('/', environmentController.create);
+router.put('/:id', environmentController.update);
+router.delete('/:id', environmentController.delete);
 
 module.exports = router;
