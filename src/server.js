@@ -3,8 +3,8 @@ require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const checkAuth = require('./middleware/checkAuth')
 const jwt = require('jsonwebtoken');
-const expressValidator = require('express-validator');
 
 // initialize express application
 const app = express();
@@ -13,6 +13,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(checkAuth);
 
 // link database
 require('../data/fish-db.js');
