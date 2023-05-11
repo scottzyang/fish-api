@@ -43,7 +43,8 @@ const familyController = {
       if (!family) {
         res.status(404).json({ message: "Unable to find family." });
       } else {
-        await family.updateOne(req.body)
+        await family.updateOne(req.body);
+        await fish.save();
         res.status(200).json(family);
       }
     } catch (err) {

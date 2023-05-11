@@ -21,12 +21,12 @@ const tokenAuth = (req, res, next) => {
 
   // verify that token is valid.
   jwt.verify(token, process.env.SECRET, (err, _) => {
-    console.log(err)
-
     if (err) {
+      console.log(err)
       return res.status(403).json({ message: "Not authorized. Token is invalid." })
     }
 
+    console.log("Authorized")
     next();
   });
 };
