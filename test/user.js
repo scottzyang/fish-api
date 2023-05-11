@@ -20,8 +20,9 @@ describe('User', function () {
       password: "passwordtest",
       email: "test@email.com"
     }
-    const apiKey = await chai.request(app).post('/user/register').send(user);
-    console.log(apiKey.apiKey)
+    const testUser = await chai.request(app).post('/user/register').send(user);
+    const apiKey = testUser.body.apiKey
+
   })
 
   it('should not be able to retrieve token/apiKey if they have not registered', function (done) {
@@ -47,7 +48,6 @@ describe('User', function () {
           .end(function (err, res) {
             res.should.have.status(200)
             expect(res.body.apiKey)
-            console.log(res.body.apiKey)
             done();
           });
       })
@@ -63,6 +63,7 @@ describe('User', function () {
       .send({ username: 'usertest', password: 'passwordtest', email: 'test@email.com' })
       .end(function (err, res) {
         res.should.have.status(200);
+        expect(res.body.token)
         done();
       });
   });
