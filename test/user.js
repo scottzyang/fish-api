@@ -14,7 +14,7 @@ const agent = chai.request.agent(app);
 const User = require('../src/models/user');
 
 describe('User', function () {
-  beforeEach( async () => {
+  before( async () => {
     const user = {
       username: "usertest",
       password: "passwordtest",
@@ -23,6 +23,11 @@ describe('User', function () {
     const testUser = await chai.request(app).post('/user/register').send(user);
     const apiKey = testUser.body.apiKey
 
+  })
+
+  after( async () => {
+    await User.deleteOne({ username: "usertest" })
+    await User.deleteOne({ username: "testone" })
   })
 
   it('should not be able to retrieve token/apiKey if they have not registered', function (done) {

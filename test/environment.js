@@ -3,6 +3,10 @@ const app = require('../src/server.js')
 const mongoose = require('mongoose')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
+const Environment = require('../src/models/environment.js')
+const Fish = require('../src/models/fish.js')
+const Family = require('../src/models/family.js')
+const User = require('../src/models/user.js')
 const assert = chai.assert
 
 chai.config.includeStack = true
@@ -19,7 +23,7 @@ describe('Fish Environment API endpoints', () => {
   let familyId;
   let environmentId;
 
-  beforeEach( async () => {
+  before( async () => {
     // Create user
     const user = {
       username: "usertest",
@@ -32,34 +36,18 @@ describe('Fish Environment API endpoints', () => {
     const userAuth = await chai.request(app).post('/user/auth').send(user);
     token = userAuth.body.token
 
-    // Create family
-    const family = {
-      name: "fishyfamily",
-      scientificName: "scientificFamily"
-    }
-
-    const familyRes = await chai.request(app).post("/fish/freshwater/families").set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey}).send(family)
-    familyId = familyRes.body._id
-
     // Create environment
     const environment = {
       name: "lakes"
     }
     const environmentRes = await chai.request(app).post("/fish/freshwater/environments").set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey}).send(environment)
     environmentId = environmentRes.body._id
+  })
 
-    // Create fish
-    const fish = {
-      name: "fishyfish",
-      scientificName: "scientificFish",
-      image: "imageOfFish.jpg",
-      family: familyId,
-      environment: [environmentId],
-      diet: ["insects", "fish", "shellfish"]
-    }
-
-    const fishRes = await chai.request(app).post('/fish/freshwater').set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey}).send(fish)
-    fishId = fishRes.body._id
+  after( async () => {
+    await User.deleteOne({ username: "usertest" })
+    await Environment.deleteOne({ name: "lakes" })
+    await Environment.deleteOne({ name: "pond" })
   })
 
   it('should fail to access API without token', (done) => {
@@ -97,5 +85,51 @@ describe('Fish Environment API endpoints', () => {
         expect(res.body.environment.name).to.equal('lakes')
         done()
       })
+  });
+
+  it('should create a environment', (done) => {
+    const newEnv = {
+      name: "ponds"
+    }
+    chai
+      .request(app)
+      .post('/fish/freshwater/environments/')
+      .set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey})
+      .send(newEnv)
+      .end((err, res) => {
+        if (err) { done(err) }
+        expect(res).to.have.status(201)
+        expect(res.body.name).to.equal("ponds")
+        done()
+      })
+  })
+
+  it('should update an environment', (done) => {
+    chai
+      .request(app)
+      .put(`/fish/freshwater/environments/${environmentId}`)
+      .set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey})
+      .send({ name: "streamyboy"})
+      .then((res) => {
+        expect(res).to.have.status(200)
+        Environment.findById(environmentId)
+          .then((updatedEnvironment) => {
+            expect(updatedEnvironment.name).to.equal("streamyboy")
+            done()
+          });
+      });
+  });
+
+  it('should delete an environment', (done) => {
+    chai
+      .request(app)
+      .delete(`/fish/freshwater/environments/${environmentId}`)
+      .set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey})
+      .end((err, res) => {
+        if (err) { done(err) }
+        expect(res).to.have.status(200)
+        expect(res.body.message).to.equal("Deleted successfully.")
+        done()
+      });
   });
 })

@@ -38,16 +38,13 @@ const fishController = {
 
   // UPDATE
   update: async (req, res) => {
-    console.log(req.body)
     try {
-      const fish = await Fish.findById(req.params.id);
-      if (!fish) {
-        res.status(404).json({ message: "Unable to find fish." });
-      } else {
-        await fish.updateOne(req.body)
-        await fish.save();
-        res.status(200).json(fish);
+      await Fish.findByIdAndUpdate(req.params.id, req.body);
+      const updatedFish = await Fish.findById(req.params.id)
+      if (!updatedFish) {
+        return res.status(404).json({ message: "Fish could not be found." })
       }
+      return res.json(updatedFish)
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: err.message });

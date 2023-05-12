@@ -39,14 +39,12 @@ const familyController = {
   // UPDATE
   update: async (req, res) => {
     try {
-      const family = await Family.findById(req.params.id);
-      if (!family) {
-        res.status(404).json({ message: "Unable to find family." });
-      } else {
-        await family.updateOne(req.body);
-        await fish.save();
-        res.status(200).json(family);
+      await Family.findByIdAndUpdate(req.params.id, req.body);
+      const updatedFamily = await Family.findById(req.params.id)
+      if (!updatedFamily) {
+        return res.status(404).json({ message: "Family could not be found."})
       }
+      return res.json(updatedFamily)
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: err.message });

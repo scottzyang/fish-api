@@ -3,6 +3,10 @@ const app = require('../src/server.js')
 const mongoose = require('mongoose')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
+const Environment = require('../src/models/environment.js')
+const Fish = require('../src/models/fish.js')
+const Family = require('../src/models/family.js')
+const User = require('../src/models/user.js')
 const assert = chai.assert
 
 chai.config.includeStack = true
@@ -15,10 +19,9 @@ chai.use(chaiHttp)
 describe('Fish Family API endpoints', () => {
   let token;
   let apiKey;
-  let fishId;
   let familyId;
 
-  beforeEach( async () => {
+  before( async () => {
     // Create user
     const user = {
       username: "usertest",
@@ -39,26 +42,12 @@ describe('Fish Family API endpoints', () => {
 
     const familyRes = await chai.request(app).post("/fish/freshwater/families").set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey}).send(family)
     familyId = familyRes.body._id
+  })
 
-    // Create environment
-    const environment = {
-      name: "lakes"
-    }
-    const environmentRes = await chai.request(app).post("/fish/freshwater/environments").set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey}).send(environment)
-    const environmentId = environmentRes.body._id
-
-    // Create fish
-    const fish = {
-      name: "fishyfish",
-      scientificName: "scientificFish",
-      image: "imageOfFish.jpg",
-      family: familyId,
-      environment: [environmentId],
-      diet: ["insects", "fish", "shellfish"]
-    }
-
-    const fishRes = await chai.request(app).post('/fish/freshwater').set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey}).send(fish)
-    fishId = fishRes.body._id
+  after( async () => {
+    await User.deleteOne({ username: "usertest" })
+    await Family.deleteOne({name: "fishyfamily" })
+    await Family.deleteOne({name: "fishyFam2" })
   })
 
   it('should fail to access API without token', (done) => {
@@ -96,5 +85,52 @@ describe('Fish Family API endpoints', () => {
         expect(res.body.family.name).to.equal('fishyfamily')
         done()
       })
+  });
+
+  it('should create a family', (done) => {
+    const newFam = {
+      name: "fishyFam2",
+      scientificName: "scientificFam2"
+    }
+    chai
+      .request(app)
+      .post('/fish/freshwater/families/')
+      .set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey})
+      .send(newFam)
+      .end((err, res) => {
+        if (err) { done(err) }
+        expect(res).to.have.status(201)
+        expect(res.body.name).to.equal("fishyFam2")
+        done()
+      })
+  })
+
+  it('should update an families', (done) => {
+    chai
+      .request(app)
+      .put(`/fish/freshwater/families/${familyId}`)
+      .set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey})
+      .send({ name: "fishfam"})
+      .then((res) => {
+        expect(res).to.have.status(200)
+        Family.findById(familyId)
+          .then((updatedFamily) => {
+            expect(updatedFamily.name).to.equal("fishfam")
+            done()
+          });
+      });
+  });
+
+  it('should delete a fish family', (done) => {
+    chai
+      .request(app)
+      .delete(`/fish/freshwater/families/${familyId}`)
+      .set({"Authorization": `Bearer: ${token}`, "x-api-key": apiKey})
+      .end((err, res) => {
+        if (err) { done(err) }
+        expect(res).to.have.status(200)
+        expect(res.body.message).to.equal("Deleted successfully.")
+        done()
+      });
   });
 })
