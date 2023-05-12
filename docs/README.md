@@ -7,6 +7,7 @@ _A Fish API that allows for users to query for different types of fish species a
 ## Features
 - **HOST URL: https://fish-api-jj90.onrender.com**
 - [API Documentation](https://scottzyang.github.io/fish-api/#/)
+- [Video Tutorial for Authenication & Authorization](https://youtu.be/CDklxRRhujs)
 - Retrieve details on specific types of freshwater fish.
 - Create new entries for fish not in the database.
 - Update current entries for fish.

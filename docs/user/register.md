@@ -9,6 +9,7 @@
 
 ## Authorization & Authentication
 
+> [Video Tutorial for Authenication & Authorization](https://youtu.be/CDklxRRhujs)
 
 - Open up REST client of choice (Postman or Insomnia).
   - You can download them here:
