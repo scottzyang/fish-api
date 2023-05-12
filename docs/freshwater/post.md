@@ -17,17 +17,8 @@
    "name": "Walleye",
    "scientificName": "Sander vitreus",
    "image": "fishyfish.jpg",
-   "family": {
-    "id": 3,
-    "name": "Perch",
-    "scientificName": "Percidae"
-   },
-   "environment": [
-    {
-      "id": 2,
-      "name": "lakes",
-    }
-   ],
+   "family": familyId,
+   "environment": [ environmentId, environmentId, ...],
    "diet": ["insects", "fish", "shellfish"]
   }
 ```
