@@ -1,5 +1,7 @@
 # POST REQUESTS
-
+> **IMPORTANT**:
+> **Must include API key and user Token within the HEADER of request. Review documentation of preferred REST client on how to do this.**
+>
 ## Fish
 
 ### New Fish Entry
@@ -13,12 +15,12 @@
 ```json
   {
    "name": "Walleye",
-   "scientific_name": "Sander vitreus",
+   "scientificName": "Sander vitreus",
    "image": "fishyfish.jpg",
    "family": {
     "id": 3,
     "name": "Perch",
-    "scientific_name": "Percidae"
+    "scientificName": "Percidae"
    },
    "environment": [
     {
@@ -36,7 +38,7 @@
   {
    "id": int,
    "name": string,
-   "scientific_name": string,
+   "scientificName": string,
    "image": string,
    "family": FamilySchema,
    "environment": EnvironmentSchema[],

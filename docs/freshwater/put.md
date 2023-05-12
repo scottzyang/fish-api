@@ -1,4 +1,6 @@
 # PUT REQUESTS
+> **IMPORTANT**:
+> **Must include API key and user Token within the HEADER of request. Review documentation of preferred REST client on how to do this.**
 
 ## Fish
 
@@ -15,7 +17,7 @@
 ```json
   {
    "name": "Smallmouth Bass",
-   "scientific_name": "Micropterus dolomieu"
+   "scientificName": "Micropterus dolomieu"
   }
 ```
 
@@ -25,7 +27,7 @@
   {
    "id": int,
    "name": string,
-   "scientific_name": string,
+   "scientificName": string,
    "image": string,
    "family": FamilySchema,
    "environment": EnvironmentSchema[],
