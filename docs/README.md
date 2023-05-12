@@ -5,6 +5,7 @@ _A Fish API that allows for users to query for different types of fish species a
 <img src="https://magazine.outdoornebraska.gov/wp-content/uploads/2019/03/fishstockingRBTngpc.jpg" alt="Rainbow trout"/>
 
 ## Features
+- [API Documentation](https://scottzyang.github.io/fish-api/#/./freshwater/post)
 - Retrieve details on specific types of freshwater fish.
 - Create new entries for fish not in the database.
 - Update current entries for fish.
