@@ -10,7 +10,7 @@ const userController = {
   register: async (req, res) => {
     try {
       // Verify if user exists by email
-      const existingUser = await User.findOne(req.body);
+      const existingUser = await User.findOne({ email: req.body.email}).exec();
 
       if (existingUser) {
         return res.status(409).json({ message: "User with that email already exists. Please login or use a different email." });
